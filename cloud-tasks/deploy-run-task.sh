@@ -1,0 +1,1 @@
+gcloud functions deploy run-task-function --entry-point runTask --runtime nodejs16 --trigger-http --allow-unauthenticated --region southamerica-east1

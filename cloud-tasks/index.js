@@ -1,15 +1,16 @@
-import express from "express";
-import { port } from "./env.js";
-import { loadTasksController } from "./task-load.js";
-import { runTaskController } from "./task-run.js";
+const { makeTaskData, createTask } = require("./utils");
 
-const app = express();
-
-app.post("/load-tasks", loadTasksController);
-app.post(
-  "/run-task",
-  express.raw({ type: "application/octet-stream", limit: "1mb" }),
-  runTaskController
-);
-
-app.listen(port, () => console.log("App runing on port", port));
+exports.runTask = (req, res) => {
+  const jsonData = JSON.parse(req.body.toString());
+  console.log("This is the JSON data received:", JSON.stringify(jsonData));
+  // TODO: handle task processing
+  res.send("ok");
+};
+exports.loadTasks = async (_, res) => {
+  const allTaskData = makeTaskData();
+  for (const data of allTaskData) {
+    console.log("Creating task...");
+    await createTask(data);
+  }
+  res.send("ok");
+};
