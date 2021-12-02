@@ -5,8 +5,8 @@ import { makeTaskData } from "./task-data.js";
 export const loadTasksController = async (req, res) => {
   const allTaskData = makeTaskData();
   for (const data of allTaskData) {
-    // await createTask(data);
-    console.log(data);
+    console.log("Creating task...");
+    await createTask(data);
   }
   res.status(200).send();
 };
